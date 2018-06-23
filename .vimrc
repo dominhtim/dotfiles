@@ -1,7 +1,7 @@
 " General
 set nocompatible                " no strict vi compatability
 set clipboard^=unnamed          " windows: copy and paste
-set noerrorbells		            " shh
+set noerrorbells                " shh
 set nojoinspaces                " no extra spacing
 set nowrap                      " no wrapping
 set autoindent                  " auto indenting
@@ -14,18 +14,18 @@ set tabstop=2
 " UI
 set backspace=indent,eol,start  " backspace
 set mouse=a                     " enable mouse support
-set number			                " line numbering
+set number                      " line numbering
 set wildmenu                    " visual auto-complete
 set showmatch                   " show ()[]{}
-set ruler			                  " show current line number
-set splitbelow		              " split window below
-set splitright		              " split window to the right
+set ruler                       " show current line number
+set splitbelow                  " split window below
+set splitright                  " split window to the right
 set modeline                    " show what is done
 
 " Search
-set ignorecase		            	" search without case
-set nohlsearch	            		" no highlight
-set incsearch             			" incremental Searching
+set ignorecase                  " search without case
+set nohlsearch                  " no highlight
+set incsearch                   " incremental Searching
 
 call plug#begin('~/.vim/plugged')
 
