@@ -1,10 +1,10 @@
 " General
-set nocompatible	            	" no strict vi compatability
-set clipboard^=unnamed	      	" windows: copy and paste
+set nocompatible                " no strict vi compatability
+set clipboard^=unnamed          " windows: copy and paste
 set noerrorbells		            " shh
-set nojoinspaces		            " no extra spacing
-set nowrap			                " no wrapping
-set autoindent			            " auto indenting
+set nojoinspaces                " no extra spacing
+set nowrap                      " no wrapping
+set autoindent                  " auto indenting
 
 " Tab
 set expandtab
@@ -12,15 +12,15 @@ set shiftwidth=2
 set tabstop=2
 
 " UI
-set backspace=indent,eol,start	" backspace
-set mouse=a			                " enable mouse support
+set backspace=indent,eol,start  " backspace
+set mouse=a                     " enable mouse support
 set number			                " line numbering
-set wildmenu			              " visual auto-complete
-set showmatch			              " show ()[]{}
+set wildmenu                    " visual auto-complete
+set showmatch                   " show ()[]{}
 set ruler			                  " show current line number
-set splitbelow		            	" split window below
-set splitright		            	" split window to the right
-set modeline                    " show what is odne
+set splitbelow		              " split window below
+set splitright		              " split window to the right
+set modeline                    " show what is done
 
 " Search
 set ignorecase		            	" search without case
