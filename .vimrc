@@ -43,5 +43,4 @@ call plug#end()
 set t_Co=256
 set background=dark
 colorscheme gruvbox
-let g:ycm_global_ycm_extra_conf = '/home/pi/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 let g:airline#extensions#ale#enabled = 1
