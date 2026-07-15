@@ -8,18 +8,26 @@ return {
     "williamboman/mason-lspconfig.nvim",
     dependencies = { "williamboman/mason.nvim" },
     opts = {
-      ensure_installed = { "lua_ls", "pyright", "bashls" },
+      ensure_installed = { "lua_ls", "pyright", "bashls" }, -- add more language servers here as needed
     },
   },
   {
     "neovim/nvim-lspconfig",
+    -- Still needed even though we no longer call require('lspconfig'):
+    -- it contributes each server's default config to the runtimepath,
+    -- which vim.lsp.enable() below picks up automatically.
     dependencies = { "williamboman/mason-lspconfig.nvim", "hrsh7th/cmp-nvim-lsp" },
     config = function()
-      local lspconfig = require("lspconfig")
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      for _, server in ipairs({ "lua_ls", "pyright", "bashls" }) do
-        lspconfig[server].setup({ capabilities = capabilities })
-      end
+      local servers = { "lua_ls", "pyright", "bashls" }
+
+      -- Applies to every server enabled below. Per-server overrides can
+      -- still be layered on top with vim.lsp.config('<name>', {...}).
+      vim.lsp.config("*", {
+        capabilities = capabilities,
+      })
+
+      vim.lsp.enable(servers)
 
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
       vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover docs" })
