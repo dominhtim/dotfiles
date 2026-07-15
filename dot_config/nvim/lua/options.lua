@@ -1,7 +1,7 @@
 local opt = vim.opt
 
 opt.number = true
-opt.relativenumber = true
+opt.relativenumber = false      -- plain fixed numbers; with this on, every line's number shifts as you move the cursor
 opt.mouse = "a"
 opt.clipboard = "unnamedplus"   -- system clipboard (needs xclip/wl-clipboard, see install.sh)
 opt.ignorecase = true
