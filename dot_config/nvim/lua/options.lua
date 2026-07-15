@@ -1,0 +1,23 @@
+local opt = vim.opt
+
+opt.number = true
+opt.relativenumber = true
+opt.mouse = "a"
+opt.clipboard = "unnamedplus"   -- system clipboard (needs xclip/wl-clipboard, see install.sh)
+opt.ignorecase = true
+opt.smartcase = true
+opt.hlsearch = false
+opt.incsearch = true
+opt.expandtab = true
+opt.shiftwidth = 2
+opt.tabstop = 2
+opt.autoindent = true
+opt.wrap = false
+opt.backspace = "indent,eol,start"
+opt.splitbelow = true
+opt.splitright = true
+opt.termguicolors = true
+opt.signcolumn = "yes"
+opt.scrolloff = 8
+opt.updatetime = 250
+opt.undofile = true             -- persistent undo across sessions, this alone is worth the switch from Vim
