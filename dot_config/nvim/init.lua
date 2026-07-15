@@ -17,5 +17,10 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Every file under lua/plugins/ is auto-loaded as a plugin spec
-require("lazy").setup("plugins")
+-- Every file under lua/plugins/ is auto-loaded as a plugin spec.
+-- rocks.enabled = false: nothing here needs luarocks-built native libs,
+-- so this just silences a cosmetic checkhealth warning rather than
+-- leaving it there to ignore every time.
+require("lazy").setup("plugins", {
+  rocks = { enabled = false },
+})
