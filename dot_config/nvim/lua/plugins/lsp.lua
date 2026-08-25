@@ -1,4 +1,4 @@
--- Replaces YouCompleteMe + ale entirely, with zero compiling.
+-- Native LSP + nvim-cmp, with Mason installing servers as prebuilt binaries.
 return {
   {
     "williamboman/mason.nvim",
@@ -8,21 +8,19 @@ return {
     "williamboman/mason-lspconfig.nvim",
     dependencies = { "williamboman/mason.nvim" },
     opts = {
-      ensure_installed = { "lua_ls", "pyright", "bashls" }, -- add more language servers here as needed
+      ensure_installed = { "lua_ls", "pyright", "bashls" }, -- add servers here
     },
   },
   {
     "neovim/nvim-lspconfig",
-    -- Still needed even though we no longer call require('lspconfig'):
-    -- it contributes each server's default config to the runtimepath,
-    -- which vim.lsp.enable() below picks up automatically.
+    -- Still needed without require('lspconfig'): it puts each server's
+    -- default config on the runtimepath for vim.lsp.enable() to find.
     dependencies = { "williamboman/mason-lspconfig.nvim", "hrsh7th/cmp-nvim-lsp" },
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local servers = { "lua_ls", "pyright", "bashls" }
 
-      -- Applies to every server enabled below. Per-server overrides can
-      -- still be layered on top with vim.lsp.config('<name>', {...}).
+      -- Applies to every server; override one with vim.lsp.config('<name>', ...)
       vim.lsp.config("*", {
         capabilities = capabilities,
       })

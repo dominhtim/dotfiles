@@ -1,9 +1,9 @@
 local opt = vim.opt
 
 opt.number = true
-opt.relativenumber = false      -- plain fixed numbers; with this on, every line's number shifts as you move the cursor
+opt.relativenumber = false      -- fixed numbers, they don't shift with the cursor
 opt.mouse = "a"
-opt.clipboard = "unnamedplus"   -- system clipboard (needs xclip/wl-clipboard, see install.sh)
+opt.clipboard = "unnamedplus"   -- system clipboard; needs xclip or wl-clipboard
 opt.ignorecase = true
 opt.smartcase = true
 opt.hlsearch = false
@@ -20,4 +20,4 @@ opt.termguicolors = true
 opt.signcolumn = "yes"
 opt.scrolloff = 8
 opt.updatetime = 250
-opt.undofile = true             -- persistent undo across sessions, this alone is worth the switch from Vim
+opt.undofile = true             -- persistent undo across sessions

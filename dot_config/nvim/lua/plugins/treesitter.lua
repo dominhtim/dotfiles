@@ -1,9 +1,5 @@
--- Real syntax-aware highlighting/indenting, not regex-based like classic Vim.
--- Pinned to `master` on purpose: nvim-treesitter's default branch is now
--- `main`, a complete, incompatible rewrite that removed
--- nvim-treesitter.configs (and ensure_installed/highlight/indent options)
--- entirely. `master` is frozen but the maintainers explicitly kept it
--- available for backward compatibility rather than deleting it.
+-- Syntax-aware highlighting and indenting. Pinned to `master` on purpose:
+-- `main` is an incompatible rewrite — see CLAUDE.md.
 return {
   "nvim-treesitter/nvim-treesitter",
   branch = "master",

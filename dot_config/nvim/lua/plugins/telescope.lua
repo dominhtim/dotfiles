@@ -1,5 +1,4 @@
--- Fuzzy finder — new addition, not in your old setup, but essential once you're navigating
--- a real project instead of single files.
+-- Fuzzy finder over files, text and buffers
 return {
   "nvim-telescope/telescope.nvim",
   branch = "0.1.x",
