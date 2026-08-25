@@ -13,3 +13,5 @@ desktop.ini
 # Env / secrets
 .env
 .env.local
+
+**/.claude/settings.local.json
