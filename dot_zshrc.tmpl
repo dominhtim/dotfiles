@@ -1,9 +1,7 @@
-# ~/.zshrc — managed by chezmoi. Edit the source with `chezmoi edit ~/.zshrc`,
-# not this file directly (your edits would be overwritten on the next `chezmoi apply`).
-# Machine-specific stuff that shouldn't go in git at all still goes in ~/.zshrc.local.
+# ~/.zshrc — managed by chezmoi. Edit with `chezmoi edit ~/.zshrc`.
 
-# Powerlevel10k instant prompt. Must stay near the top of the file.
-# Anything that reads input (password prompts, [y/n]) must go ABOVE this block.
+# Powerlevel10k instant prompt. Anything that reads input (password
+# prompts, [y/n]) must go ABOVE this block.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -25,11 +23,11 @@ ENABLE_CORRECTION="true"
 
 plugins=(
   git
-  sudo                                # press Esc twice to re-run last command with sudo
-  extract                             # `extract <archive>` — one command for zip/tar/rar/whatever
+  sudo                                # Esc twice re-runs the last command with sudo
+  extract                             # `extract <archive>` for any archive format
   fzf
   zsh-autosuggestions
-  zsh-syntax-highlighting             # must stay LAST in this list, it breaks bindings of anything after it
+  zsh-syntax-highlighting             # must stay LAST, it breaks bindings after it
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -38,7 +36,7 @@ source $ZSH/oh-my-zsh.sh
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=50000
 SAVEHIST=50000
-setopt EXTENDED_HISTORY          # save timestamps
+setopt EXTENDED_HISTORY          # timestamps
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE         # don't record lines starting with a space
@@ -65,9 +63,7 @@ alias vi='nvim'
 alias reload='exec zsh'
 alias dotfiles='chezmoi cd'
 
-{{- /* This block is the actual payoff of moving to chezmoi templating: one repo,
-       one alias, correct on every OS it's applied to. Add more `{{ if }}` blocks
-       here as you add machines that need to differ (hostname, distro, etc). */}}
+{{- /* One source, correct on every OS it's applied to. */}}
 {{- if eq .chezmoi.os "darwin" }}
 alias pbc='pbcopy'
 alias pbp='pbpaste'
@@ -77,12 +73,8 @@ alias pbp='xclip -selection clipboard -o'
 {{- end }}
 
 # --- fzf: Ctrl+R history, Ctrl+T files, ** completion ---
-# One prefix, not two: Debian 13 and Ubuntu both ship these under
-# /usr/share/doc/fzf/examples (checked against both distros' fzf packages).
-# The /usr/share/fzf path this used to also try exists on neither.
-# completion.zsh has to be listed explicitly — neither distro's package
-# sources it for you, so ** completion is otherwise silently off. It needs
-# compinit to have run already, which oh-my-zsh does further up.
+# completion.zsh must be sourced explicitly; no distro package does it, and
+# it needs the compinit above. See CLAUDE.md for the path choice.
 [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
 [ -f /usr/share/doc/fzf/examples/completion.zsh ] && source /usr/share/doc/fzf/examples/completion.zsh
 

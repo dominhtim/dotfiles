@@ -1,11 +1,11 @@
--- Leader must be set before lazy.nvim loads any plugins that map <leader>
+-- Must be set before lazy.nvim loads any plugin that maps <leader>
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 require("options")
 require("keymaps")
 
--- Bootstrap lazy.nvim (self-clones on first run, nothing to preinstall)
+-- Self-clones on first run, nothing to preinstall
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -17,10 +17,8 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Every file under lua/plugins/ is auto-loaded as a plugin spec.
--- rocks.enabled = false: nothing here needs luarocks-built native libs,
--- so this just silences a cosmetic checkhealth warning rather than
--- leaving it there to ignore every time.
+-- Every file under lua/plugins/ is auto-loaded as a spec. rocks is off
+-- because nothing here needs luarocks-built native libs.
 require("lazy").setup("plugins", {
   rocks = { enabled = false },
 })

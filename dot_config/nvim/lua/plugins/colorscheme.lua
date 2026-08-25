@@ -1,4 +1,4 @@
--- Same gruvbox look as your old .vimrc, maintained Neovim port
+-- Maintained Neovim port of gruvbox
 return {
   "ellisonleao/gruvbox.nvim",
   priority = 1000,

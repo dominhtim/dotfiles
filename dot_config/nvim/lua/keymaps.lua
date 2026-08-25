@@ -8,10 +8,6 @@ map("n", "<C-d>", "<C-d>zz", { desc = "Half-page down, keep cursor centered" })
 map("n", "<C-u>", "<C-u>zz", { desc = "Half-page up, keep cursor centered" })
 map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlight" })
 
--- Highlight + Ctrl-C copies to the system clipboard, GUI-app style.
--- "+y" explicitly targets the system clipboard register — doesn't rely on
--- 'clipboard=unnamedplus' in options.lua staying set, so this keeps
--- working even if that ever changes. Only remapped in visual mode: this
--- gives up Ctrl-C's default "cancel visual mode" behavior specifically
--- while selecting, but Esc still does that same job.
+-- Visual mode only, and "+y targets the clipboard register directly so it
+-- doesn't depend on 'clipboard' staying set. Esc still cancels selection.
 map("v", "<C-c>", '"+y', { desc = "Copy selection to system clipboard" })
