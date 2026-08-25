@@ -76,9 +76,15 @@ alias pbc='xclip -selection clipboard'
 alias pbp='xclip -selection clipboard -o'
 {{- end }}
 
-# --- fzf keybindings (Ctrl+R history, Ctrl+T files) — path differs by distro, try both ---
+# --- fzf: Ctrl+R history, Ctrl+T files, ** completion ---
+# One prefix, not two: Debian 13 and Ubuntu both ship these under
+# /usr/share/doc/fzf/examples (checked against both distros' fzf packages).
+# The /usr/share/fzf path this used to also try exists on neither.
+# completion.zsh has to be listed explicitly — neither distro's package
+# sources it for you, so ** completion is otherwise silently off. It needs
+# compinit to have run already, which oh-my-zsh does further up.
 [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
-[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
+[ -f /usr/share/doc/fzf/examples/completion.zsh ] && source /usr/share/doc/fzf/examples/completion.zsh
 
 # --- prompt ---
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
