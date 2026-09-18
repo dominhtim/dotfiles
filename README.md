@@ -66,7 +66,7 @@ OS-specific paths. `dot_zshrc.tmpl` has a worked example:
 {{- if eq .chezmoi.os "darwin" }}
 alias pbc='pbcopy'
 {{- else }}
-alias pbc='xclip -selection clipboard'
+alias pbc='xclip -selection clipboard'   # wl-copy under Wayland
 {{- end }}
 ```
 

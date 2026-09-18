@@ -38,22 +38,30 @@ on different machines without hand-maintained per-machine override files.
 chezmoi's sources are real templates: `dot_gitconfig.tmpl` bakes in the actual
 name/email (asked once, remembered per machine) instead of needing a separate
 `.gitconfig.local` recreated everywhere. The clipboard aliases in
-`dot_zshrc.tmpl` are the same idea — one source line resolving to `pbcopy` on
-macOS and `xclip` on Linux.
+`dot_zshrc.tmpl` are the same idea — one source resolving to `pbcopy` on
+macOS and to `wl-copy` or `xclip` on Linux. That last choice is a runtime
+`$WAYLAND_DISPLAY` check rather than a template condition, because the same
+machine can run a Wayland or an X11 session, and neither over SSH. It also
+requires `wl-copy` to exist: WSLg sets `$WAYLAND_DISPLAY` too, on machines
+provisioned before wl-clipboard was added to the package list.
 
 `~/.zshrc.local` is sourced last and stays outside chezmoi and git entirely,
 for one-off tweaks. Anything that's a real, known-in-advance per-machine value
 should go through templating instead.
 
-## Why the fzf sources use `/usr/share/doc/fzf/examples`
+## Why fzf is left entirely to the oh-my-zsh plugin
 
-Debian 13 and Ubuntu both ship the key-bindings and completion scripts there;
-this was checked against both distros' fzf packages. The `/usr/share/fzf` path
-this file used to also try exists on neither.
+The `fzf` plugin runs `fzf --zsh` when fzf is >= 0.48, which sets up the key
+bindings and `**` completion in one go, from the binary itself — no
+distro-specific script path. Every distro the workstation-setup repo
+supports ships a new enough fzf (Debian 13 has 0.60, Ubuntu 26.04 and Fedora
+0.67, Arch 0.74), verified on Arch and Fedora by checking that `^R` is bound
+to `fzf-history-widget` and `_fzf_complete` exists.
 
-`completion.zsh` has to be listed explicitly — neither distro's package sources
-it, so `**` completion is otherwise silently off. It needs `compinit` to have
-run already, which oh-my-zsh does further up the file.
+`.zshrc` used to also source the scripts from `/usr/share/doc/fzf/examples`
+by hand. That path only exists on Debian and Ubuntu, where it loaded fzf a
+second time; the belief behind it — that nothing else sources
+`completion.zsh` — was true of the distro packages but missed the plugin.
 
 ## Why the statusline avoids Nerd Font glyphs
 
