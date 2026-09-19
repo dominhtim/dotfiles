@@ -25,7 +25,7 @@ plugins=(
   git
   sudo                                # Esc twice re-runs the last command with sudo
   extract                             # `extract <archive>` for any archive format
-  fzf
+  fzf                                 # Ctrl+R, Ctrl+T, ** completion; see CLAUDE.md
   zsh-autosuggestions
   zsh-syntax-highlighting             # must stay LAST, it breaks bindings after it
 )
@@ -68,15 +68,15 @@ alias dotfiles='chezmoi cd'
 alias pbc='pbcopy'
 alias pbp='pbpaste'
 {{- else }}
-alias pbc='xclip -selection clipboard'
-alias pbp='xclip -selection clipboard -o'
+# Checked per session, not per machine: one Linux box can log into either.
+if [[ -n $WAYLAND_DISPLAY ]] && (( $+commands[wl-copy] )); then
+  alias pbc='wl-copy'
+  alias pbp='wl-paste --no-newline'
+else
+  alias pbc='xclip -selection clipboard'
+  alias pbp='xclip -selection clipboard -o'
+fi
 {{- end }}
-
-# --- fzf: Ctrl+R history, Ctrl+T files, ** completion ---
-# completion.zsh must be sourced explicitly; no distro package does it, and
-# it needs the compinit above. See CLAUDE.md for the path choice.
-[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
-[ -f /usr/share/doc/fzf/examples/completion.zsh ] && source /usr/share/doc/fzf/examples/completion.zsh
 
 # --- prompt ---
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
