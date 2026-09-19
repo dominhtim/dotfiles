@@ -1,0 +1,46 @@
+# ~/.config/fish/config.fish — managed by chezmoi. Edit with
+# `chezmoi edit ~/.config/fish/config.fish`.
+
+fish_add_path --global ~/.local/bin   # chezmoi itself lives here
+set -gx EDITOR nvim
+set -gx VISUAL nvim
+
+if status is-interactive
+    set -g fish_greeting   # no banner on every new shell
+
+    # --- aliases ---
+    alias ls 'ls -Fh --color=auto'
+    alias la 'ls -A'
+    alias ll 'ls -lAh'
+    alias cp 'cp -iv --reflink=auto'
+    alias mv 'mv -iv'
+    alias rm 'rm -v'
+    alias mkdir 'mkdir -pv'
+    alias grep 'grep --color=auto'
+    alias .. 'cd ..'
+    alias ... 'cd ../..'
+    alias vim nvim
+    alias vi nvim
+    alias reload 'exec fish'
+    alias dotfiles 'chezmoi cd'
+
+{{- if eq .chezmoi.os "darwin" }}
+    alias pbc pbcopy
+    alias pbp pbpaste
+{{- else }}
+    # Checked per session, not per machine: one Linux box can log into either.
+    if set -q WAYLAND_DISPLAY; and command -q wl-copy
+        alias pbc wl-copy
+        alias pbp 'wl-paste --no-newline'
+    else
+        alias pbc 'xclip -selection clipboard'
+        alias pbp 'xclip -selection clipboard -o'
+    end
+{{- end }}
+
+    # --- fzf: Ctrl+R history, Ctrl+T files, Alt+C cd ---
+    command -q fzf; and fzf --fish | source
+end
+
+# --- local machine overrides, never committed ---
+test -f ~/.config/fish/local.fish; and source ~/.config/fish/local.fish

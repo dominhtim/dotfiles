@@ -1,3 +1,13 @@
 README.md
 CLAUDE.md
 .gitignore
+
+{{- /* Only the chosen shell's config is applied; see CLAUDE.md. */}}
+{{- $shell := get . "shell" | default "zsh" }}
+{{- if ne $shell "zsh" }}
+.zshrc
+.p10k.zsh
+{{- end }}
+{{- if ne $shell "fish" }}
+.config/fish
+{{- end }}
