@@ -1,6 +1,9 @@
 {{- $email := promptStringOnce . "email" "Git email address" -}}
 {{- $name := promptStringOnce . "name" "Git name" -}}
+{{- /* Normally seeded by workstation-setup; zsh when this repo is used alone. */ -}}
+{{- $shell := get . "shell" | default "zsh" -}}
 
 [data]
     name  = {{ $name  | quote }}
     email = {{ $email | quote }}
+    shell = {{ $shell | quote }}

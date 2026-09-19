@@ -49,6 +49,24 @@ provisioned before wl-clipboard was added to the package list.
 for one-off tweaks. Anything that's a real, known-in-advance per-machine value
 should go through templating instead.
 
+## Why only one shell's config is applied
+
+`shell` in chezmoi's data (`zsh` by default, `fish` when workstation-setup's
+`login_shell` says so) drives `.chezmoiignore`, which skips the other
+shell's files. A fish machine has no zsh or oh-my-zsh installed, so a
+`.zshrc` there would be dead weight at best.
+
+`.chezmoi.toml.tmpl` carries `shell` through with `get . "shell"` rather
+than prompting: the first `chezmoi init` regenerates the config from that
+template, and workstation-setup has already seeded the value. `get` rather
+than `.shell` because chezmoi errors on a missing key, and a standalone
+`chezmoi init` has none.
+
+`config.fish` mirrors `.zshrc` rather than sharing a file with it: the two
+syntaxes differ in every line that matters (aliases, conditionals, sourcing).
+fzf's fish integration comes from `fzf --fish`, the same binary-provided
+setup the zsh plugin uses.
+
 ## Why fzf is left entirely to the oh-my-zsh plugin
 
 The `fzf` plugin runs `fzf --zsh` when fzf is >= 0.48, which sets up the key
